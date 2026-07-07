@@ -445,9 +445,11 @@ body::before {
 .product-card {
   background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
   overflow: hidden; display: flex; flex-direction: column;
-  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
+  /* --rx/--ry are driven by the pointer (js/motion.js) for a 3D tilt */
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--ty, 0px));
+  transition: transform .35s var(--ease), box-shadow .45s var(--ease);
 }
-.product-card:hover { transform: translateY(-7px); box-shadow: 0 26px 52px rgba(42,27,22,.16); }
+.product-card:hover { --ty: -7px; box-shadow: 0 26px 52px rgba(42,27,22,.16); }
 
 .product-media {
   aspect-ratio: 4 / 5; position: relative; overflow: hidden; cursor: zoom-in;
@@ -680,6 +682,107 @@ body::before {
 .page-404 { min-height: 70vh; display: grid; place-items: center; text-align: center; padding: 4rem 1.5rem; }
 .page-404 .big { font-family: var(--serif); font-size: clamp(5rem, 18vw, 10rem); color: var(--maroon); line-height: 1; font-style: italic; }
 .page-404 p { color: var(--ink-soft); margin: 1rem 0 2rem; }
+
+/* ============================================================
+   MOTION LAYER (paired with js/motion.js)
+   ============================================================ */
+
+/* scroll-progress thread */
+.scroll-thread {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 210;
+  background: linear-gradient(90deg, var(--gold), var(--gold-2), var(--maroon-3));
+  transform: scaleX(0); transform-origin: left;
+  pointer-events: none;
+}
+
+/* split-text hero: words rise from behind a fold */
+.hero h1.split-done { animation: none; opacity: 1; transform: none; }
+.hero h1 .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .08em; margin-bottom: -.08em; }
+.hero h1 .wi {
+  display: inline-block; transform: translateY(115%);
+  animation: word-rise .85s var(--ease) forwards;
+}
+@keyframes word-rise { to { transform: translateY(0); } }
+.hero .hindi-accent.hindi-in {
+  opacity: 0; filter: blur(4px);
+  animation: hindi-rise 1s var(--ease) forwards;
+}
+@keyframes hindi-rise { to { opacity: 1; filter: blur(0); } }
+
+/* zari-dust particle canvas */
+.zari-dust { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+/* trailing cursor glow (fine pointers only; created by JS) */
+.cursor-glow {
+  position: fixed; top: 0; left: 0; z-index: 3;
+  width: 340px; height: 340px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,150,62,.13), rgba(196,150,62,.05) 45%, transparent 70%);
+  pointer-events: none; will-change: transform;
+}
+
+/* gold shine that follows the pointer across product images */
+.product-media::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
+              rgba(246,235,205,.28), transparent 55%);
+  opacity: 0; transition: opacity .35s var(--ease);
+}
+.product-card:hover .product-media::after { opacity: 1; }
+
+/* the loom weaves: shuttle glides, weft threads breathe */
+.loom-shuttle {
+  animation: shuttle-glide 3.6s cubic-bezier(.45, 0, .55, 1) infinite alternate;
+}
+@keyframes shuttle-glide {
+  from { transform: translateX(-34px); }
+  to   { transform: translateX(34px); }
+}
+.loom-weft path {
+  animation: weft-breathe 3.6s ease-in-out infinite alternate;
+}
+.loom-weft path:nth-child(2) { animation-delay: -1.8s; }
+@keyframes weft-breathe {
+  from { transform: translateY(0); }
+  to   { transform: translateY(2.5px); }
+}
+
+/* heritage timeline: items thread in one after another */
+.timeline .timeline-item { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.timeline.in .timeline-item { opacity: 1; transform: none; }
+.timeline.in .timeline-item:nth-child(2) { transition-delay: .12s; }
+.timeline.in .timeline-item:nth-child(3) { transition-delay: .24s; }
+.timeline.in .timeline-item:nth-child(4) { transition-delay: .36s; }
+.timeline.in .timeline-item:nth-child(5) { transition-delay: .48s; }
+
+/* floating WhatsApp button: soft living pulse */
+.wa-float::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  border: 2px solid rgba(18,140,75,.55);
+  animation: wa-pulse 2.6s ease-out infinite;
+}
+@keyframes wa-pulse {
+  0%   { transform: scale(1); opacity: .8; }
+  70%  { transform: scale(1.65); opacity: 0; }
+  100% { transform: scale(1.65); opacity: 0; }
+}
+
+/* login side panel: the jaali lattice drifts slowly */
+.auth-side .motif-bg { animation: jaali-drift 60s linear infinite; }
+@keyframes jaali-drift {
+  from { transform: translate(0, 0) rotate(0deg); }
+  to   { transform: translate(-50px, -50px) rotate(2deg); }
+}
+
+/* lightbox media: slow ken-burns while open */
+.lightbox.open .lightbox-media img,
+.lightbox.open .lightbox-media svg.ph {
+  animation: kenburns 9s ease-out forwards;
+}
+@keyframes kenburns { to { transform: scale(1.06); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-thread, .cursor-glow, .zari-dust { display: none; }
+}
 
 /* utility */
 .mt-2 { margin-top: 2rem; } .center-text { text-align: center; }
