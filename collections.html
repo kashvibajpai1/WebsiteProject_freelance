@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collections — Treasure Trove | Carpets, Banarasi Silks &amp; Handicrafts</title>
+  <meta name="description" content="Browse Treasure Trove's collections: hand-knotted carpets, Banarasi handloom sarees, clothing, dupattas and heirloom handicrafts. Enquire directly on WhatsApp.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%234A0E18'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23D9B45C' font-family='Georgia'>T</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <noscript>
+    <div style="background:#4A0E18;color:#F6F0E4;text-align:center;padding:.8rem 1rem;font-family:sans-serif;font-size:.9rem">
+      Please enable JavaScript to browse our collections. You can always reach us on WhatsApp at +91&nbsp;98017&nbsp;98125.
+    </div>
+  </noscript>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Treasure Trove — home">
+        <svg class="brand-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <rect x="10" y="10" width="28" height="28" transform="rotate(45 24 24)"/>
+          <rect x="16" y="16" width="16" height="16" transform="rotate(45 24 24)"/>
+          <circle cx="24" cy="24" r="3.5" fill="currentColor" stroke="none"/>
+          <path d="M24 2v8M24 38v8M2 24h8M38 24h8"/>
+        </svg>
+        <span>
+          <span class="brand-name" data-cfg="brandName">Treasure Trove</span>
+          <span class="brand-sub">by Weaves &amp; Drapes · est. 1980s</span>
+        </span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="index.html#story">Our Story</a>
+        <a class="nav-link" href="collections.html">Collections</a>
+        <a class="nav-link nav-vault-link" href="vault.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          The Vault
+        </a>
+        <a class="nav-link" href="index.html#visit">Visit Us</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:.9rem">
+        <span id="auth-area"></span>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head center reveal in">
+          <span class="eyebrow">The Collections</span>
+          <h2>What the looms sent this season</h2>
+          <p>
+            Every piece is one of one — when it's gone, it's gone. See something
+            you love? Tap <strong>Enquire</strong> and it opens a WhatsApp chat
+            with us directly.
+          </p>
+        </div>
+
+        <!-- Login gate (shown when login is required and user is signed out) -->
+        <div class="gate" id="login-gate" hidden>
+          <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          <h2>Members browse first</h2>
+          <p>
+            Our collections are reserved for registered guests — it takes under a
+            minute to join, and it's free. Sign in to continue where you left off.
+          </p>
+          <button class="btn btn-primary" onclick="TTAuth.goToLogin()">Sign In / Register</button>
+          <a class="btn btn-outline" href="index.html">Back to Home</a>
+        </div>
+
+        <!-- Actual collection (shown when allowed) -->
+        <div id="collection-content" hidden>
+          <div class="filter-bar" id="filter-bar" role="group" aria-label="Filter by category"></div>
+          <div class="product-grid" id="collection-grid"></div>
+          <div class="divider-motif mt-2" aria-hidden="true">✦</div>
+          <p class="center-text" style="color:var(--ink-soft);max-width:52ch;margin:1.5rem auto 0">
+            Don't see what you're looking for? Our back room is deeper than our
+            website — <a data-cfg-href="whatsapp" href="#" target="_blank" rel="noopener noreferrer" style="color:var(--maroon);text-decoration:underline;text-underline-offset:3px">message us on WhatsApp</a>
+            and tell us what you have in mind.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="wrap footer-main">
+      <div class="footer-brand">
+        <span class="brand-name" data-cfg="brandName">Treasure Trove</span>
+        <p>Formerly Weaves &amp; Drapes. Hand-knotted carpets, Banarasi handlooms and heirloom handicrafts, since the 1980s.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#story">Our Story</a></li>
+          <li><a href="collections.html">Collections</a></li>
+          <li><a href="vault.html">The Vault</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a data-cfg-href="whatsapp" href="#" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          <li><a data-cfg-href="instagramUrl" href="#" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a data-cfg-href="mailto" href="#">Email</a></li>
+          <li><a data-cfg-href="tel" href="#">Call Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Find Us</h4>
+        <ul>
+          <li><span data-cfg="addressLine1">CRC The Flagship</span></li>
+          <li><span data-cfg="addressLine2">Sector 140, Noida, UP, India</span></li>
+          <li><a data-cfg-href="mapsUrl" href="#" target="_blank" rel="noopener noreferrer">Directions →</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>© <span id="year">2026</span> Treasure Trove · All rights reserved</span>
+      <span>Every piece handmade · Every story true</span>
+    </div>
+  </footer>
+
+  <a class="wa-float" data-cfg-href="whatsapp" href="#" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.98L2 22l5.16-1.5A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 1 1-4.12 15.08l-.3-.18-3.06.89.9-2.98-.2-.31A8.1 8.1 0 0 1 12.05 3.8Zm-3.3 3.9c-.18 0-.47.07-.72.34-.24.27-.94.92-.94 2.24 0 1.32.96 2.6 1.1 2.78.13.18 1.86 2.97 4.6 4.05 2.28.9 2.74.72 3.24.67.5-.04 1.6-.65 1.82-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32-.27-.13-1.6-.79-1.85-.88-.25-.09-.43-.13-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07a7.42 7.42 0 0 1-2.18-1.35 8.2 8.2 0 0 1-1.51-1.88c-.16-.27-.02-.42.12-.55.12-.12.27-.32.4-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.13-.6-1.46-.83-2-.2-.46-.4-.4-.55-.4h-.53Z"/></svg>
+  </a>
+
+  <script src="js/config.js"></script>
+  <script src="data/products.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>

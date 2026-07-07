@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — Treasure Trove</title>
+  <meta name="description" content="Sign in or register with Treasure Trove to browse our collections and request access to The Vault.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%234A0E18'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23D9B45C' font-family='Georgia'>T</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <noscript>
+    <div style="background:#4A0E18;color:#F6F0E4;text-align:center;padding:.8rem 1rem;font-family:sans-serif;font-size:.9rem">
+      Login requires JavaScript. You can always reach us on WhatsApp at +91&nbsp;98017&nbsp;98125.
+    </div>
+  </noscript>
+
+  <!-- ============ HEADER (slim) ============ -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Treasure Trove — home">
+        <svg class="brand-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <rect x="10" y="10" width="28" height="28" transform="rotate(45 24 24)"/>
+          <rect x="16" y="16" width="16" height="16" transform="rotate(45 24 24)"/>
+          <circle cx="24" cy="24" r="3.5" fill="currentColor" stroke="none"/>
+          <path d="M24 2v8M24 38v8M2 24h8M38 24h8"/>
+        </svg>
+        <span>
+          <span class="brand-name" data-cfg="brandName">Treasure Trove</span>
+          <span class="brand-sub">by Weaves &amp; Drapes · est. 1980s</span>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-link" href="index.html">← Back to the Store</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="auth-layout">
+    <div class="auth-panel">
+      <h1 id="auth-title">Welcome back</h1>
+      <p id="auth-sub">Sign in to browse the collections — or register in under a minute. It's free, always.</p>
+
+      <div class="auth-tabs" role="tablist" aria-label="Sign in or register">
+        <button type="button" id="tab-signin" role="tab" aria-selected="true" class="active">Sign In</button>
+        <button type="button" id="tab-register" role="tab" aria-selected="false">Register</button>
+      </div>
+
+      <div class="form-msg" id="form-msg" role="alert" aria-live="polite"></div>
+
+      <!-- ===== SIGN IN ===== -->
+      <form class="auth-form" id="form-signin" novalidate>
+        <div class="field">
+          <label for="si-email">Email Address</label>
+          <input type="email" id="si-email" autocomplete="email" required placeholder="you@example.com">
+          <span class="error">Please enter a valid email address.</span>
+        </div>
+        <div class="field">
+          <label for="si-password">Password</label>
+          <input type="password" id="si-password" autocomplete="current-password" required minlength="6" placeholder="••••••••">
+          <span class="error">Please enter your password.</span>
+        </div>
+        <button type="submit" class="btn btn-primary" id="si-submit">Sign In</button>
+        <p class="auth-alt">New to Treasure Trove? <button type="button" data-switch="register">Create an account</button></p>
+      </form>
+
+      <!-- ===== REGISTER ===== -->
+      <form class="auth-form" id="form-register" hidden novalidate>
+        <div class="field">
+          <label for="rg-name">Full Name</label>
+          <input type="text" id="rg-name" autocomplete="name" required placeholder="Your name">
+          <span class="error">Please tell us your name.</span>
+        </div>
+        <div class="field">
+          <label for="rg-email">Email Address</label>
+          <input type="email" id="rg-email" autocomplete="email" required placeholder="you@example.com">
+          <span class="error">Please enter a valid email address.</span>
+        </div>
+        <div class="field">
+          <label for="rg-phone">Phone Number</label>
+          <input type="tel" id="rg-phone" autocomplete="tel" required placeholder="+91 98XXX XXXXX" inputmode="tel">
+          <span class="hint">We use this only to verify Vault access requests.</span>
+          <span class="error">Please enter a valid phone number (10-digit Indian or international format).</span>
+        </div>
+        <div class="field">
+          <label for="rg-password">Password</label>
+          <input type="password" id="rg-password" autocomplete="new-password" required minlength="6" placeholder="At least 6 characters">
+          <span class="error">Password must be at least 6 characters.</span>
+        </div>
+        <div class="field">
+          <label for="rg-confirm">Confirm Password</label>
+          <input type="password" id="rg-confirm" autocomplete="new-password" required minlength="6" placeholder="Repeat your password">
+          <span class="error">Passwords don't match.</span>
+        </div>
+        <button type="submit" class="btn btn-primary" id="rg-submit">Create Account</button>
+        <p class="auth-alt">Already registered? <button type="button" data-switch="signin">Sign in instead</button></p>
+      </form>
+    </div>
+
+    <div class="auth-side" aria-hidden="true">
+      <svg class="motif-bg" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1">
+        <defs>
+          <pattern id="jaali" width="50" height="50" patternUnits="userSpaceOnUse">
+            <path d="M25 0L50 25L25 50L0 25Z" fill="none" stroke="currentColor"/>
+            <circle cx="25" cy="25" r="6"/>
+          </pattern>
+        </defs>
+        <rect width="400" height="400" fill="url(#jaali)"/>
+      </svg>
+      <blockquote>
+        <p>"A powerloom copies the pattern. Only a hand can weave the patience in."</p>
+        <footer>A weaver of Varanasi</footer>
+      </blockquote>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>
