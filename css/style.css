@@ -154,10 +154,16 @@ body::before {
 .user-chip button:hover { color: var(--maroon); }
 
 /* mobile nav */
-@media (max-width: 480px) {
+/* compact header on small phones: everything must fit one row */
+@media (max-width: 600px) {
+  .header-inner { gap: .7rem; }
+  .brand { gap: .55rem; min-width: 0; }
   .brand-name { font-size: 1.05rem; white-space: nowrap; }
-  .brand-sub { letter-spacing: .18em; white-space: nowrap; }
-  .brand-mark { width: 36px; height: 36px; }
+  .brand-sub { display: none; } /* still shown in hero, story & footer */
+  .brand-mark { width: 34px; height: 34px; }
+  .btn-auth { padding: .55rem 1rem; font-size: .72rem; letter-spacing: .12em; }
+  .user-chip { padding-right: .7rem; }
+  .user-chip > span:not(.avatar) { display: none; } /* avatar + logout only */
 }
 
 .nav-toggle { display: none; flex-direction: column; gap: 5px; padding: .5rem; }
