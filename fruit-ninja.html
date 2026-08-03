@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0B0A0D">
+<title>Finger Ninja — slice fruit with your hands</title>
+<meta name="description" content="A webcam fruit-slicing game. Your index fingertip is the blade — swipe through the fruit, dodge the bombs.">
+<link rel="stylesheet" href="css/fruit-ninja.css">
+</head>
+<body>
+
+<div class="fn-stage" id="stage">
+  <!-- webcam feed: composited by the GPU, never copied per frame -->
+  <video class="fn-cam" id="cam" playsinline muted autoplay></video>
+  <div class="fn-scrim"></div>
+  <canvas class="fn-canvas" id="canvas"></canvas>
+  <div class="fn-damage" id="damage"></div>
+
+  <!-- HUD ------------------------------------------------- -->
+  <div class="fn-hud">
+    <div class="fn-score-wrap">
+      <span class="fn-label">Score</span>
+      <span class="fn-score" id="score">0</span>
+      <span class="fn-best" id="bestLine">Best 0</span>
+    </div>
+    <div class="fn-right">
+      <span class="fn-timer" id="timer" hidden>1:30</span>
+      <div class="fn-lives" id="lives">
+        <i class="fn-life"></i><i class="fn-life"></i><i class="fn-life"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="fn-hint" id="hint">Hold your hand up to the camera</div>
+
+  <div class="fn-tray">
+    <button class="fn-chip" id="btnSkeleton" type="button">Hand guide</button>
+    <button class="fn-chip" id="btnSound" type="button">Sound</button>
+    <button class="fn-chip" id="btnQuit" type="button">Quit</button>
+    <span class="fn-stat" id="stat">—</span>
+  </div>
+
+  <!-- MENU ------------------------------------------------ -->
+  <div class="fn-overlay" id="menu">
+    <div class="fn-card">
+      <p class="fn-kicker">Camera controlled</p>
+      <h1>Finger <em>Ninja</em></h1>
+      <p class="fn-sub">
+        Your index fingertip is the blade. Hold a hand up to your webcam
+        and swipe straight through the fruit — fast swipes cut, slow ones don't.
+        Use both hands if you're feeling brave.
+      </p>
+
+      <div class="fn-modes">
+        <button class="fn-mode on" data-mode="classic" type="button">
+          <strong>Classic</strong>
+          <span>Three lives. Drop a fruit or hit a bomb and you lose one.</span>
+        </button>
+        <button class="fn-mode" data-mode="zen" type="button">
+          <strong>Zen</strong>
+          <span>Ninety seconds, no bombs, nothing to lose. Just slicing.</span>
+        </button>
+      </div>
+
+      <ol class="fn-steps">
+        <li><span class="fn-dot">1</span><span>Stand back about <b>an arm's length</b> so your whole hand is in frame.</span></li>
+        <li><span class="fn-dot">2</span><span>Keep the room reasonably lit — the tracker reads hands, not shadows.</span></li>
+        <li><span class="fn-dot">3</span><span>No camera? Everything still works with the <b>mouse or a finger</b> on the screen.</span></li>
+      </ol>
+
+      <div class="fn-actions">
+        <button class="fn-btn primary" id="btnPlay" type="button">Enable camera &amp; play</button>
+        <button class="fn-btn ghost" id="btnMouse" type="button">Play with mouse</button>
+      </div>
+      <p class="fn-status" id="status"></p>
+    </div>
+  </div>
+
+  <!-- GAME OVER ------------------------------------------- -->
+  <div class="fn-overlay fade" id="over" hidden>
+    <div class="fn-card">
+      <p class="fn-kicker" id="overKicker">Out of lives</p>
+      <h2>Blade down</h2>
+      <div class="fn-final">
+        <div><span class="fn-label">Score</span><span class="fn-num" id="finalScore">0</span></div>
+        <div><span class="fn-label">Best</span><span class="fn-num gold" id="finalBest">0</span></div>
+      </div>
+      <span class="fn-newbest" id="newBest" hidden>New personal best</span>
+      <div class="fn-actions">
+        <button class="fn-btn primary" id="btnAgain" type="button">Slice again</button>
+        <button class="fn-btn ghost" id="btnMenu" type="button">Change mode</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a class="fn-back" href="index.html">← Treasure Trove</a>
+
+<script type="module" src="js/fruit-ninja.js"></script>
+</body>
+</html>

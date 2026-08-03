@@ -18,6 +18,7 @@ step, hostable for free on GitHub Pages, Netlify or Vercel.
 | `vault.html` | **The Vault** — exclusive pieces | Logged-in users **approved by you** |
 | `login.html` | Sign in / register (name, email, phone, password) | Everyone |
 | `404.html` | Friendly "thread not found" page | — |
+| `fruit-ninja.html` | **Finger Ninja** — webcam fruit-slicing game (see below) | Everyone |
 
 Every product card and the floating green button open **WhatsApp** chat with
 your business number, pre-filled with the product name and reference code.
@@ -36,6 +37,79 @@ npx serve .
 
 (Opening `index.html` by double-click also works for most things, but a local
 server is closer to how the live site behaves.)
+
+**Finger Ninja needs a real server** — `fruit-ninja.html` uses ES modules and
+the camera, and browsers block both on `file://`. Use one of the commands
+above and visit `http://localhost:8080/fruit-ninja.html`.
+
+---
+
+## Finger Ninja — the webcam game
+
+`fruit-ninja.html` is a self-contained arcade game: your **index fingertip is
+the blade**. Hold a hand up to the laptop camera and swipe through the fruit.
+Two hands work at once. There is no build step and it shares the site's
+palette, so it drops onto the same static host as everything else.
+
+| File | Role |
+|---|---|
+| `fruit-ninja.html` | Page shell, HUD and overlays |
+| `css/fruit-ninja.css` | Styling |
+| `js/fruit-ninja.js` | Wires the DOM to the game |
+| `js/game/hand-tracker.js` | Camera + MediaPipe hand landmarks |
+| `js/game/game.js` | Physics, slicing, scoring, render loop |
+| `js/game/fruits.js` | All fruit artwork (canvas paths, no image files) |
+| `js/game/audio.js` | Sound effects, synthesised in WebAudio |
+
+**Modes** — *Classic* (three lives; dropping a fruit or hitting a bomb costs
+one) and *Zen* (ninety seconds, no bombs). Best scores are kept per mode in
+`localStorage`. `Esc` quits, `Space` restarts, `H` toggles the hand guide,
+`M` mutes.
+
+### How it stays responsive
+
+Webcam games usually feel laggy because the blade waits on the detector. This
+one doesn't:
+
+- the camera feed is a plain `<video>` **behind** the canvas, so the GPU
+  composites it and no pixels are copied per frame;
+- detection runs on `requestVideoFrameCallback`, i.e. once per *camera* frame
+  rather than once per render frame, and drops to every other frame if
+  inference starts costing more than ~20 ms;
+- fingertip coordinates go through a **One Euro filter** (smooth when you hold
+  still, immediate when you swipe) and are then **extrapolated** to the render
+  timestamp, so the blade tracks at display rate even though detection is
+  slower;
+- collisions use the **swept segment** between two blade samples, measured in
+  the fruit's own frame of reference, so fast swipes can't tunnel through;
+- every fruit is baked into a cached sprite once and then just blitted, rather
+  than re-running a few dozen gradients and paths per fruit per frame.
+
+### Requirements and privacy
+
+Chrome, Edge or Safari, and permission to use the camera. **Video never leaves
+the browser** — there is no upload and no recording; frames go straight from
+the camera into the tracker in the same tab.
+
+Hand tracking uses Google's MediaPipe HandLandmarker, loaded from a CDN at
+runtime because the model plus runtime is roughly 27 MB — too large to commit
+here. If the CDN is blocked or the camera is refused, the game says so and
+stays fully playable with the mouse or a finger on a touchscreen.
+
+To run it **offline** (kiosk, no CDN), self-host
+[`@mediapipe/tasks-vision`](https://www.npmjs.com/package/@mediapipe/tasks-vision)
+and the `hand_landmarker.task` model, then set this before the page's script
+loads:
+
+```html
+<script>
+  window.FN_TRACKER_SOURCES = {
+    esm:   '/vendor/tasks-vision/vision_bundle.mjs',
+    wasm:  '/vendor/tasks-vision/wasm',
+    model: '/vendor/hand_landmarker.task',
+  };
+</script>
+```
 
 ---
 
